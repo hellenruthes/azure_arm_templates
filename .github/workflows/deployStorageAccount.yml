@@ -20,7 +20,7 @@ jobs:
           subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
           resourceGroupName: "hruthes-dataeng"
           template: ./raw-storage.json
-          parameters: storageSKU=Standard_LRS
+          parameters: storageSKU=Standard_LRS;prefix=raw;
 
         # output containerName variable from template
       - run: echo ${{ steps.deploy.outputs.containerName }}

@@ -4,9 +4,10 @@
   "parameters": {
     "storagePrefix": {
       "type": "string",
-      "defaultValue": "raw"
+      "defaultValue": "raw",
+      "minLength": 3,
+      "maxLength": 24
     },
-
     "storageSKU": {
       "type": "string",
       "defaultValue": "Standard_LRS",
@@ -27,7 +28,7 @@
     }
   },
   "variables": {
-    "uniqueStorageName": "[concat(parameters('storagePrefix'), uniqueString(resourceGroup().id))]"
+    "uniqueStorageName": "[concat(parameters('storagePrefix').'tou-storageacc')]"
   },
   "resources": [
     {
