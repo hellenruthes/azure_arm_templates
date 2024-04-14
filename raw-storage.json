@@ -23,11 +23,11 @@
     },
     "location": {
       "type": "string",
-      "defaultValue": "eastus"
+      "defaultValue": "[resourceGroup().location]"
     }
   },
   "variables": {
-    "uniqueStorageName": "hruthes-test-raw-storage"
+    "uniqueStorageName": "[concat(parameters('storagePrefix'), uniqueString(resourceGroup().id))]"
   },
   "resources": [
     {
