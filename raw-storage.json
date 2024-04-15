@@ -28,7 +28,7 @@
     }
   },
   "variables": {
-    "uniqueStorageName": "[concat(parameters('storagePrefix'),'tou-storageacc-test')]"
+    "uniqueStorageName": "[concat(parameters('storagePrefix'),'toustorageacctest')]"
   },
   "resources": [
     {
