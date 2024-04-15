@@ -5,7 +5,7 @@
   "parameters": {
     "_artifactsLocation": {
       "type": "string",
-      "defaultValue": "[uri(deployment().properties.templateLink.uri,'azuredeploy.json')]"
+      "defaultValue": "[deployment().properties.templateHash]"
     },
     "_artifactsLocationSASToken": {
       "type": "securestring",
