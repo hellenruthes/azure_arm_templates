@@ -27,7 +27,7 @@ jobs:
           template: ./synapse.json
           parameters: sqlAdministratorLogin=${{ secrets.SYNAPSE_CREDENTIALS.login }} 
                       sqlAdministratorLoginPassword=${{ secrets.SYNAPSE_CREDENTIALS.password }} 
-                      companyTla=hruthes 
+                      companyTla=hruthes
       
 
         # output containerName variable from template
