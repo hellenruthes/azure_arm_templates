@@ -441,6 +441,25 @@
       },
       "resources": [
         {
+      "name": "linkedTemplate",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2022-09-01",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "relativePath": "linkedStorageAccount.json"
+        },
+        "parameters": {
+          "storageAccountName": {
+            "value": "dlshruthesdevtest"
+          },
+          "location": {
+            "value": "[parameters('location')]"
+          }
+        }
+      }
+    },
+        {
           "condition": "[parameters('metadataSync')]",
           "type": "metadataSync",
           "apiVersion": "2019-06-01-preview",
