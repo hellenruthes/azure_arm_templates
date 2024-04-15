@@ -25,7 +25,7 @@ jobs:
           subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
           resourceGroupName: "hruthes-dataeng"
           template: ./synapse.json
-          parameters: 
+          parameters: sqlAdministratorLogin=${{ secrets.SYNAPSE_CREDENTIALS.login }} sqlAdministratorLoginPassword=${{ secrets.SYNAPSE_CREDENTIALS.password }}
       
 
         # output containerName variable from template
