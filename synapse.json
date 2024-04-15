@@ -276,7 +276,7 @@
       "properties": {
         "mode": "Incremental",
         "templatelink": {
-          "uri": "[uri(parameters('_artifactsLocation'), concat('nestedtemplates/pausetemplate.json', parameters('_artifactsLocationSASToken')))]"
+          "uri": "[uri(deployment().properties.templateLink.uri, 'azuredeploy-synapse.json')]"
         },
         "parameters": {
           "logicAppName": {
@@ -456,7 +456,7 @@
       ]
     },
     {
-      "condition": "[equals(parameters('sparkDeployment'),'true')]",
+      "condition": "[equals(parameters('sparkDeployment'),'false')]",
       "type": "Microsoft.Synapse/workspaces/bigDataPools",
       "apiVersion": "2019-06-01-preview",
       "name": "[concat(variables('workspaceName'), '/', variables('sparkPoolName'))]",
@@ -526,7 +526,7 @@
       "properties": {
         "mode": "Incremental",
         "templatelink": {
-          "uri": "[uri(parameters('_artifactsLocation'), concat('nestedtemplates/logicapproleassignments.json', parameters('_artifactsLocationSASToken')))]"
+          "uri": "[uri(deployment().properties.templateLink.uri, 'azuredeploy-rkazurekeyvault.json')]"
         },
         "parameters": {
           "logicAppName": {
