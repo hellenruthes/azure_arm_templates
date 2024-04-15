@@ -1,5 +1,5 @@
 on: [push]
-name: Azure ARM
+name: Azure Synapse Workspace ARM Tempalte
 jobs:
     build-and-deploy:
       runs-on: ubuntu-latest
