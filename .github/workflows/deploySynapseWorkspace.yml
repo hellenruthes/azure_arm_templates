@@ -23,7 +23,7 @@ jobs:
         uses: azure/arm-deploy@v1
         with:
           subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
-          resourceGroupName: "hruthes-dataeng"
+          resourceGroupName: "hruthes-resourcegroup"
           template: ./synapse.json
           parameters: sqlAdministratorLogin=${{ secrets.SYNAPSE_CREDENTIALS.login }} 
                       sqlAdministratorLoginPassword=${{ secrets.SYNAPSE_CREDENTIALS.password }} 
