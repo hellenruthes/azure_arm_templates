@@ -382,7 +382,7 @@
       ]
     },
     {
-      "condition": "[equals(parameters('sparkDeployment'),'true')]",
+      "condition": "[equals(parameters('sparkDeployment'),'false')]",
       "type": "Microsoft.Synapse/workspaces/bigDataPools",
       "apiVersion": "2019-06-01-preview",
       "name": "[concat(variables('workspaceName'), '/', variables('sparkPoolName'))]",
