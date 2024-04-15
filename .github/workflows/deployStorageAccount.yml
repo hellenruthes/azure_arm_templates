@@ -2,7 +2,7 @@ on:
   push:
     paths:
       - 'raw-storage.json'
-name: Azure ARM
+name: Storage Account ARM Template
 jobs:
     build-and-deploy:
       runs-on: ubuntu-latest

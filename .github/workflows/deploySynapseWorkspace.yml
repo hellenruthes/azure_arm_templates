@@ -2,7 +2,7 @@ on:
   push:
     paths:
       - 'synapse.json'
-name: Azure Synapse Workspace ARM Template
+name: Synapse ARM Template
 jobs:
     build-and-deploy:
       runs-on: ubuntu-latest
@@ -17,7 +17,7 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - run: echo ${{ secrets.SYNAPSE_CREDENTIALS.login }}    
-      
+
         # Deploy ARM template
       - name: Run ARM deploy
         uses: azure/arm-deploy@v1
@@ -25,7 +25,7 @@ jobs:
           subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
           resourceGroupName: "hruthes-dataeng"
           template: ./synapse.json
-          parameters: workspaceName=hruthes-synapse-armtemplate sqlAdministratorLogin= storageAccountName=hruthesdataengtestarm
+          parameters: 
       
 
         # output containerName variable from template
