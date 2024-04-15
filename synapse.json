@@ -57,7 +57,7 @@
     },
     "deploymentType": {
       "type": "string",
-      "defaultValue": "poc",
+      "defaultValue": "devtest",
       "allowedValues": [
         "devtest",
         "poc",
