@@ -387,6 +387,28 @@
         "managedVirtualNetwork": "default"
       },
       "resources": [
+          {
+      "name": "linkedTemplate",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2022-09-01",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "relativePath": "linkedStorageAccount.json"
+        },
+        "parameters": {
+          "storageAccountName": {
+            "value": "dlshruthesdevtest"
+          },
+          "location": {
+            "value": "[parameters('location')]"
+          }
+        }
+      }
+    },
+            
+
+
         {
           "condition": "[equals(parameters('allowAllConnections'),'true')]",
           "type": "firewallrules",
@@ -440,25 +462,6 @@
         "collation": "SQL_Latin1_General_CP1_CI_AS"
       },
       "resources": [
-        {
-      "name": "linkedTemplate",
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2022-09-01",
-      "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-          "relativePath": "linkedStorageAccount.json"
-        },
-        "parameters": {
-          "storageAccountName": {
-            "value": "dlshruthesdevtest"
-          },
-          "location": {
-            "value": "[parameters('location')]"
-          }
-        }
-      }
-    },
         {
           "condition": "[parameters('metadataSync')]",
           "type": "metadataSync",
@@ -525,7 +528,7 @@
       "properties": {
         "mode": "Incremental",
         "templatelink": {
-          "uri": "[uri(parameters('_artifactsLocation'), concat('nestedtemplates/logicapproleassignments.json', parameters('_artifactsLocationSASToken')))]"
+          "value": "[reference('linkedTemplate')]"
         },
         "parameters": {
           "logicAppName": {
