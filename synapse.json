@@ -1,313 +1,174 @@
 {
-    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-    "contentVersion": "1.0.0.1",
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
     "parameters": {
-        "name": {
-            "type": "String"
-        },
-        "location": {
-            "type": "String"
-        },
-        "defaultDataLakeStorageAccountName": {
-            "type": "String"
-        },
-        "defaultDataLakeStorageFilesystemName": {
-            "type": "String"
-        },
-        "sqlAdministratorLogin": {
-            "type": "String"
-        },
-        "sqlAdministratorLoginPassword": {
-            "defaultValue": "",
+        "vulnerabilityAssessments_Default_storageContainerPath": {
             "type": "SecureString"
         },
-        "setWorkspaceIdentityRbacOnStorageAccount": {
-            "type": "Bool"
-        },
-        "createManagedPrivateEndpoint": {
-            "type": "Bool"
-        },
-        "defaultAdlsGen2AccountResourceId": {
-            "defaultValue": "",
+        "workspaces_hruthes_synapse_test5_name": {
+            "defaultValue": "hruthes-synapse-test5",
             "type": "String"
         },
-        "azureADOnlyAuthentication": {
-            "type": "Bool"
-        },
-        "allowAllConnections": {
-            "defaultValue": true,
-            "type": "Bool"
-        },
-        "managedVirtualNetwork": {
-            "allowedValues": [
-                "default",
-                ""
-            ],
+        "storageAccounts_hruthesstoragetest5_externalid": {
+            "defaultValue": "/subscriptions/7cdbb1ff-4702-4327-becc-68e03a901c01/resourceGroups/hruthes-dataeng/providers/Microsoft.Storage/storageAccounts/hruthesstoragetest5",
             "type": "String"
-        },
-        "tagValues": {
-            "defaultValue": {},
-            "type": "Object"
-        },
-        "publicNetworkAccess": {
-            "allowedValues": [
-                "Enabled",
-                "Disabled"
-            ],
-            "type": "String"
-        },
-        "storageSubscriptionID": {
-            "defaultValue": "[subscription().subscriptionId]",
-            "type": "String"
-        },
-        "storageResourceGroupName": {
-            "defaultValue": "[resourceGroup().name]",
-            "type": "String"
-        },
-        "storageLocation": {
-            "defaultValue": "[resourceGroup().location]",
-            "type": "String"
-        },
-        "storageRoleUniqueId": {
-            "defaultValue": "[newGuid()]",
-            "type": "String"
-        },
-        "isNewStorageAccount": {
-            "defaultValue": false,
-            "type": "Bool"
-        },
-        "isNewFileSystemOnly": {
-            "defaultValue": false,
-            "type": "Bool"
-        },
-        "adlaResourceId": {
-            "defaultValue": "",
-            "type": "String"
-        },
-        "managedResourceGroupName": {
-            "defaultValue": "",
-            "type": "String"
-        },
-        "storageAccessTier": {
-            "type": "String"
-        },
-        "storageAccountType": {
-            "type": "String"
-        },
-        "storageSupportsHttpsTrafficOnly": {
-            "type": "Bool"
-        },
-        "storageKind": {
-            "type": "String"
-        },
-        "minimumTlsVersion": {
-            "type": "String"
-        },
-        "storageIsHnsEnabled": {
-            "type": "Bool"
-        },
-        "userObjectId": {
-            "defaultValue": "",
-            "type": "String"
-        },
-        "setSbdcRbacOnStorageAccount": {
-            "defaultValue": false,
-            "type": "Bool"
-        },
-        "setWorkspaceMsiByPassOnStorageAccount": {
-            "defaultValue": false,
-            "type": "Bool"
-        },
-        "workspaceStorageAccountProperties": {
-            "defaultValue": {},
-            "type": "Object"
-        },
-        "managedVirtualNetworkSettings": {
-            "type": "Object"
         }
     },
-    "variables": {
-        "storageBlobDataContributorRoleID": "ba92f5b4-2d11-453d-a403-e96b0029c9fe",
-        "defaultDataLakeStorageAccountUrl": "[concat('https://', parameters('defaultDataLakeStorageAccountName'), '.dfs.core.windows.net')]"
-    },
+    "variables": {},
     "resources": [
         {
             "type": "Microsoft.Synapse/workspaces",
-            "apiVersion": "2021-06-01-preview",
-            "name": "[parameters('name')]",
-            "location": "[parameters('location')]",
-            "dependsOn": [
-                "[concat('Microsoft.Storage/storageAccounts/', parameters('defaultDataLakeStorageAccountName'))]",
-                "[concat('Microsoft.Resources/deployments/', parameters('defaultDataLakeStorageFilesystemName'))]"
-            ],
-            "tags": "[parameters('tagValues')]",
+            "apiVersion": "2021-06-01",
+            "name": "[parameters('workspaces_hruthes_synapse_test5_name')]",
+            "location": "eastus",
             "identity": {
                 "type": "SystemAssigned"
             },
             "properties": {
                 "defaultDataLakeStorage": {
-                    "accountUrl": "[variables('defaultDataLakeStorageAccountUrl')]",
-                    "filesystem": "[parameters('defaultDataLakeStorageFilesystemName')]",
-                    "resourceId": "[parameters('defaultAdlsGen2AccountResourceId')]",
-                    "createManagedPrivateEndpoint": "[parameters('createManagedPrivateEndpoint')]"
+                    "resourceId": "[parameters('storageAccounts_hruthesstoragetest5_externalid')]",
+                    "createManagedPrivateEndpoint": false,
+                    "accountUrl": "https://hruthesstoragetest5.dfs.core.windows.net",
+                    "filesystem": "filesystemtest5"
                 },
-                "managedVirtualNetwork": "[parameters('managedVirtualNetwork')]",
-                "managedResourceGroupName": "[parameters('managedResourceGroupName')]",
-                "publicNetworkAccess": "[parameters('publicNetworkAccess')]",
-                "managedVirtualNetworkSettings": "[parameters('managedVirtualNetworkSettings')]",
-                "azureADOnlyAuthentication": "[parameters('azureADOnlyAuthentication')]",
-                "sqlAdministratorLogin": "[parameters('sqlAdministratorLogin')]",
-                "sqlAdministratorLoginPassword": "[parameters('sqlAdministratorLoginPassword')]"
-            },
-            "resources": [
-                {
-                    "type": "firewallrules",
-                    "apiVersion": "2021-06-01-preview",
-                    "name": "allowAll",
-                    "location": "[parameters('location')]",
-                    "dependsOn": [
-                        "[concat('Microsoft.Synapse/workspaces/', parameters('name'))]"
-                    ],
-                    "properties": {
-                        "startIpAddress": "0.0.0.0",
-                        "endIpAddress": "255.255.255.255"
-                    },
-                    "condition": "[parameters('allowAllConnections')]"
-                }
-            ]
+                "encryption": {},
+                "managedVirtualNetwork": "default",
+                "managedResourceGroupName": "synapseworkspace-managedrg-46f48769-b502-447d-92f1-7e8c36243d07",
+                "sqlAdministratorLogin": "sqladminuser",
+                "privateEndpointConnections": [],
+                "managedVirtualNetworkSettings": {
+                    "preventDataExfiltration": false,
+                    "allowedAadTenantIdsForLinking": []
+                },
+                "publicNetworkAccess": "Enabled",
+                "cspWorkspaceAdminProperties": {
+                    "initialWorkspaceAdminObjectId": "b8ff661d-b08b-4443-a9f6-3e6e709021e0"
+                },
+                "azureADOnlyAuthentication": false,
+                "trustedServiceBypassEnabled": false
+            }
         },
         {
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2019-05-01",
-            "name": "StorageRoleDeploymentResource",
+            "type": "Microsoft.Synapse/workspaces/auditingSettings",
+            "apiVersion": "2021-06-01",
+            "name": "[concat(parameters('workspaces_hruthes_synapse_test5_name'), '/Default')]",
             "dependsOn": [
-                "[concat('Microsoft.Synapse/workspaces/', parameters('name'))]"
+                "[resourceId('Microsoft.Synapse/workspaces', parameters('workspaces_hruthes_synapse_test5_name'))]"
             ],
             "properties": {
-                "mode": "Incremental",
-                "template": {
-                    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-                    "contentVersion": "1.0.0.0",
-                    "parameters": {},
-                    "variables": {},
-                    "resources": [
-                        {
-                            "type": "Microsoft.Storage/storageAccounts/providers/roleAssignments",
-                            "apiVersion": "2018-09-01-preview",
-                            "name": "[concat(parameters('defaultDataLakeStorageAccountName'), '/Microsoft.Authorization/',  guid(concat(resourceGroup().id, '/', variables('storageBlobDataContributorRoleID'), '/', parameters('name'), '/', parameters('storageRoleUniqueId'))))]",
-                            "location": "[parameters('storageLocation')]",
-                            "properties": {
-                                "roleDefinitionId": "[resourceId('Microsoft.Authorization/roleDefinitions', variables('storageBlobDataContributorRoleID'))]",
-                                "principalId": "[reference(concat('Microsoft.Synapse/workspaces/', parameters('name')), '2021-06-01', 'Full').identity.principalId]",
-                                "principalType": "ServicePrincipal"
-                            }
-                        },
-                        {
-                            "condition": "[parameters('setSbdcRbacOnStorageAccount')]",
-                            "type": "Microsoft.Storage/storageAccounts/providers/roleAssignments",
-                            "apiVersion": "2018-09-01-preview",
-                            "name": "[concat(parameters('defaultDataLakeStorageAccountName'), '/Microsoft.Authorization/',  guid(concat(resourceGroup().id, '/', variables('storageBlobDataContributorRoleID'), '/', parameters('userObjectId'), '/', parameters('storageRoleUniqueId'))))]",
-                            "properties": {
-                                "roleDefinitionId": "[resourceId('Microsoft.Authorization/roleDefinitions', variables('storageBlobDataContributorRoleID'))]",
-                                "principalId": "[parameters('userObjectId')]",
-                                "principalType": "User"
-                            }
-                        }
-                    ]
-                }
-            },
-            "subscriptionId": "[parameters('storageSubscriptionID')]",
-            "resourceGroup": "[parameters('storageResourceGroupName')]",
-            "condition": "[parameters('setWorkspaceIdentityRbacOnStorageAccount')]"
+                "retentionDays": 0,
+                "auditActionsAndGroups": [],
+                "isStorageSecondaryKeyInUse": false,
+                "isAzureMonitorTargetEnabled": false,
+                "state": "Disabled",
+                "storageAccountSubscriptionId": "00000000-0000-0000-0000-000000000000"
+            }
         },
         {
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2019-05-01",
-            "name": "UpdateStorageAccountNetworkingAcls",
+            "type": "Microsoft.Synapse/workspaces/azureADOnlyAuthentications",
+            "apiVersion": "2021-06-01",
+            "name": "[concat(parameters('workspaces_hruthes_synapse_test5_name'), '/default')]",
             "dependsOn": [
-                "[concat('Microsoft.Synapse/workspaces/', parameters('name'))]"
+                "[resourceId('Microsoft.Synapse/workspaces', parameters('workspaces_hruthes_synapse_test5_name'))]"
             ],
             "properties": {
-                "mode": "Incremental",
-                "template": {
-                    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-                    "contentVersion": "1.0.0.0",
-                    "parameters": {},
-                    "variables": {},
-                    "resources": [
-                        {
-                            "type": "Microsoft.Storage/storageAccounts",
-                            "apiVersion": "2021-01-01",
-                            "location": "[parameters('storageLocation')]",
-                            "name": "[parameters('defaultDataLakeStorageAccountName')]",
-                            "properties": "[parameters('workspaceStorageAccountProperties')]"
-                        }
-                    ]
-                }
-            },
-            "subscriptionId": "[parameters('storageSubscriptionID')]",
-            "resourceGroup": "[parameters('storageResourceGroupName')]",
-            "condition": "[parameters('setWorkspaceMsiByPassOnStorageAccount')]"
+                "azureADOnlyAuthentication": false
+            }
         },
         {
-            "type": "Microsoft.Storage/storageAccounts",
-            "apiVersion": "2021-01-01",
-            "name": "[parameters('defaultDataLakeStorageAccountName')]",
-            "location": "[parameters('storageLocation')]",
-            "tags": {},
-            "sku": {
-                "name": "[parameters('storageAccountType')]"
-            },
-            "kind": "[parameters('storageKind')]",
-            "properties": {
-                "accessTier": "[parameters('storageAccessTier')]",
-                "supportsHttpsTrafficOnly": "[parameters('storageSupportsHttpsTrafficOnly')]",
-                "isHnsEnabled": "[parameters('storageIsHnsEnabled')]",
-                "minimumTlsVersion": "[parameters('minimumTlsVersion')]"
-            },
-            "resources": [
-                {
-                    "type": "blobServices/containers",
-                    "apiVersion": "2021-01-01",
-                    "name": "[concat('default/', parameters('defaultDataLakeStorageFilesystemName'))]",
-                    "dependsOn": [
-                        "[concat('Microsoft.Storage/storageAccounts/', parameters('defaultDataLakeStorageAccountName'))]"
-                    ],
-                    "properties": {
-                        "publicAccess": "None"
-                    },
-                    "condition": "[parameters('isNewStorageAccount')]"
-                }
+            "type": "Microsoft.Synapse/workspaces/dedicatedSQLminimalTlsSettings",
+            "apiVersion": "2021-06-01",
+            "name": "[concat(parameters('workspaces_hruthes_synapse_test5_name'), '/default')]",
+            "location": "eastus",
+            "dependsOn": [
+                "[resourceId('Microsoft.Synapse/workspaces', parameters('workspaces_hruthes_synapse_test5_name'))]"
             ],
-            "condition": "[parameters('isNewStorageAccount')]"
+            "properties": {
+                "minimalTlsVersion": "1.2"
+            }
         },
         {
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2019-05-01",
-            "name": "[parameters('defaultDataLakeStorageFilesystemName')]",
+            "type": "Microsoft.Synapse/workspaces/extendedAuditingSettings",
+            "apiVersion": "2021-06-01",
+            "name": "[concat(parameters('workspaces_hruthes_synapse_test5_name'), '/Default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Synapse/workspaces', parameters('workspaces_hruthes_synapse_test5_name'))]"
+            ],
             "properties": {
-                "mode": "Incremental",
-                "template": {
-                    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-                    "contentVersion": "1.0.0.0",
-                    "parameters": {},
-                    "variables": {},
-                    "resources": [
-                        {
-                            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
-                            "name": "[concat(parameters('defaultDataLakeStorageAccountName'), '/default/', parameters('defaultDataLakeStorageFilesystemName'))]",
-                            "apiVersion": "2021-01-01",
-                            "properties": {
-                                "publicAccess": "None"
-                            }
-                        }
-                    ]
+                "retentionDays": 0,
+                "auditActionsAndGroups": [],
+                "isStorageSecondaryKeyInUse": false,
+                "isAzureMonitorTargetEnabled": false,
+                "state": "Disabled",
+                "storageAccountSubscriptionId": "00000000-0000-0000-0000-000000000000"
+            }
+        },
+        {
+            "type": "Microsoft.Synapse/workspaces/firewallRules",
+            "apiVersion": "2021-06-01",
+            "name": "[concat(parameters('workspaces_hruthes_synapse_test5_name'), '/allowAll')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Synapse/workspaces', parameters('workspaces_hruthes_synapse_test5_name'))]"
+            ],
+            "properties": {
+                "startIpAddress": "0.0.0.0",
+                "endIpAddress": "255.255.255.255"
+            }
+        },
+        {
+            "type": "Microsoft.Synapse/workspaces/integrationruntimes",
+            "apiVersion": "2021-06-01",
+            "name": "[concat(parameters('workspaces_hruthes_synapse_test5_name'), '/AutoResolveIntegrationRuntime')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Synapse/workspaces', parameters('workspaces_hruthes_synapse_test5_name'))]"
+            ],
+            "properties": {
+                "type": "Managed",
+                "typeProperties": {
+                    "computeProperties": {
+                        "location": "AutoResolve"
+                    }
+                },
+                "managedVirtualNetwork": {
+                    "referenceName": "default",
+                    "type": "ManagedVirtualNetworkReference",
+                    "id": "2aef9230-0730-403d-8529-6017f4e49fb5"
                 }
-            },
-            "subscriptionId": "[parameters('storageSubscriptionID')]",
-            "resourceGroup": "[parameters('storageResourceGroupName')]",
-            "condition": "[parameters('isNewFileSystemOnly')]"
+            }
+        },
+        {
+            "type": "Microsoft.Synapse/workspaces/securityAlertPolicies",
+            "apiVersion": "2021-06-01",
+            "name": "[concat(parameters('workspaces_hruthes_synapse_test5_name'), '/Default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Synapse/workspaces', parameters('workspaces_hruthes_synapse_test5_name'))]"
+            ],
+            "properties": {
+                "state": "Disabled",
+                "disabledAlerts": [
+                    ""
+                ],
+                "emailAddresses": [
+                    ""
+                ],
+                "emailAccountAdmins": false,
+                "retentionDays": 0
+            }
+        },
+        {
+            "type": "Microsoft.Synapse/workspaces/vulnerabilityAssessments",
+            "apiVersion": "2021-06-01",
+            "name": "[concat(parameters('workspaces_hruthes_synapse_test5_name'), '/Default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Synapse/workspaces', parameters('workspaces_hruthes_synapse_test5_name'))]"
+            ],
+            "properties": {
+                "recurringScans": {
+                    "isEnabled": false,
+                    "emailSubscriptionAdmins": true
+                },
+                "storageContainerPath": "[parameters('vulnerabilityAssessments_Default_storageContainerPath')]"
+            }
         }
-    ],
-    "outputs": {}
+    ]
 }
