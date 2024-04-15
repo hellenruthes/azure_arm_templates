@@ -1,8 +1,16 @@
+
 {
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-  
+    "_artifactsLocation": {
+      "type": "string",
+      "defaultValue": "[deployment().properties.templatelink.uri]"
+    },
+    "_artifactsLocationSASToken": {
+      "type": "securestring",
+      "defaultValue": ""
+    },
     "location": {
       "type": "string",
       "defaultValue": "[resourceGroup().location]",
@@ -12,7 +20,6 @@
     },
     "companyTla": {
       "type": "string",
-	  "defaultValue": "tou",
       "metadata": {
         "description": "This is a Three Letter Acronym for your company name. 'CON' for Contoso for example."
       }
@@ -38,7 +45,7 @@
     },
     "sparkNodeSize": {
       "type": "string",
-      "defaultValue": "Small",
+      "defaultValue": "Medium",
       "allowedValues": [
         "Small",
         "Medium",
@@ -112,7 +119,7 @@
     },
     "TIME_ZONE": {
       "type": "string",
-      "defaultValue": "GMT Standard Time",
+      "defaultValue": "Eastern Standard Time",
       "allowedValues": [
         "Dateline Standard Time",
         "Samoa Standard Time",
@@ -184,7 +191,7 @@
     },
     "ResumeTime": {
       "type": "string",
-      "defaultValue": "10:00 AM ( 10:00 )",
+      "defaultValue": "09:00 PM ( 21:00 )",
       "allowedValues": [
         "12:00 AM (  0:00 )",
         "01:00 AM (  1:00 )",
@@ -217,7 +224,7 @@
     },
     "PauseTime": {
       "type": "string",
-      "defaultValue": "09:00 PM ( 21:00 )",
+      "defaultValue": "05:00 PM ( 17:00 )",
       "allowedValues": [
         "12:00 AM (  0:00 )",
         "01:00 AM (  1:00 )",
@@ -262,7 +269,74 @@
     ]
   },
   "resources": [
-
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2020-06-01",
+      "name": "logicAppPauseDeployment",
+      "properties": {
+        "mode": "Incremental",
+        "templatelink": {
+          "uri": "[uri(parameters('_artifactsLocation'), concat('nestedtemplates/pausetemplate.json', parameters('_artifactsLocationSASToken')))]"
+        },
+        "parameters": {
+          "logicAppName": {
+            "value": "[variables('logicApps')[0]]"
+          },
+          "Frequency": {
+            "value": "[parameters('Frequency')]"
+          },
+          "companyTla": {
+            "value": "[parameters('companyTla')]"
+          },
+          "deploymentType": {
+            "value": "[parameters('deploymentType')]"
+          },
+          "TIME_ZONE": {
+            "value": "[parameters('TIME_ZONE')]"
+          },
+          "PauseTime": {
+            "value": "[parameters('PauseTime')]"
+          },
+          "location": {
+            "value": "[parameters('location')]"
+          }
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2020-06-01",
+      "name": "logicAppResumeDeployment",
+      "properties": {
+        "mode": "Incremental",
+        "templatelink": {
+          "uri": "[uri(parameters('_artifactsLocation'), concat('nestedtemplates/resumetemplate.json', parameters('_artifactsLocationSASToken')))]"
+        },
+        "parameters": {
+          "logicAppName": {
+            "value": "[variables('logicApps')[1]]"
+          },
+          "Frequency": {
+            "value": "[parameters('Frequency')]"
+          },
+          "companyTla": {
+            "value": "[parameters('companyTla')]"
+          },
+          "deploymentType": {
+            "value": "[parameters('deploymentType')]"
+          },
+          "TIME_ZONE": {
+            "value": "[parameters('TIME_ZONE')]"
+          },
+          "ResumeTime": {
+            "value": "[parameters('ResumeTime')]"
+          },
+          "location": {
+            "value": "[parameters('location')]"
+          }
+        }
+      }
+    },
     {
       "type": "Microsoft.Storage/storageAccounts",
       "apiVersion": "2019-06-01",
@@ -382,7 +456,7 @@
       ]
     },
     {
-      "condition": "[equals(parameters('sparkDeployment'),'false')]",
+      "condition": "[equals(parameters('sparkDeployment'),'true')]",
       "type": "Microsoft.Synapse/workspaces/bigDataPools",
       "apiVersion": "2019-06-01-preview",
       "name": "[concat(variables('workspaceName'), '/', variables('sparkPoolName'))]",
@@ -420,7 +494,46 @@
         "principalId": "[reference(resourceId('Microsoft.Synapse/workspaces', variables('workspaceName')), '2019-06-01-preview', 'Full').identity.principalId]",
         "principalType": "ServicePrincipal"
       }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2020-06-01",
+      "name": "MSIRBACOnResourceGroup0",
+      "dependsOn": [
+        "logicAppResumeDeployment",
+        "logicAppPauseDeployment"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templatelink": {
+          "uri": "[uri(parameters('_artifactsLocation'), concat('nestedtemplates/logicapproleassignments.json', parameters('_artifactsLocationSASToken')))]"
+        },
+        "parameters": {
+          "logicAppName": {
+            "value": "[variables('logicApps')[0]]"
+          }
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2020-06-01",
+      "name": "MSIRBACOnResourceGroup1",
+      "dependsOn": [
+        "logicAppResumeDeployment",
+        "logicAppPauseDeployment"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templatelink": {
+          "uri": "[uri(parameters('_artifactsLocation'), concat('nestedtemplates/logicapproleassignments.json', parameters('_artifactsLocationSASToken')))]"
+        },
+        "parameters": {
+          "logicAppName": {
+            "value": "[variables('logicApps')[1]]"
+          }
+        }
+      }
     }
   ]
 }
-
