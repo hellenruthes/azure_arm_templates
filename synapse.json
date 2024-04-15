@@ -5,7 +5,7 @@
   "parameters": {
     "_artifactsLocation": {
       "type": "string",
-      "defaultValue": "[deployment().properties.templateHash]"
+      "defaultValue": "[deployment().properties.templateLink.uri]"
     },
     "_artifactsLocationSASToken": {
       "type": "securestring",
