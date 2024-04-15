@@ -4,7 +4,9 @@
   "parameters": {
     "_artifactsLocation": {
       "type": "string",
-      "defaultValue": "[deployment().properties.templatelink.uri]"
+      "metadata": {
+        "description": "The base URI where artifacts required by this template are located."
+      }
     },
     "_artifactsLocationSASToken": {
       "type": "securestring",
