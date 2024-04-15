@@ -2,7 +2,7 @@ on:
   push:
     paths:
       - 'synapse.json'
-name: Azure Synapse Workspace ARM Tempalte
+name: Azure Synapse Workspace ARM Template
 jobs:
     build-and-deploy:
       runs-on: ubuntu-latest
