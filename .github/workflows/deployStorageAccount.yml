@@ -1,4 +1,7 @@
-on: [push]
+on: 
+  push:
+    paths:
+      - 'raw-storage.json'
 name: Azure ARM
 jobs:
     build-and-deploy:

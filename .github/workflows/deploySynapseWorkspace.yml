@@ -1,4 +1,7 @@
-on: [push]
+on: 
+  push:
+    paths:
+      - 'synapse.json'
 name: Azure Synapse Workspace ARM Tempalte
 jobs:
     build-and-deploy:
