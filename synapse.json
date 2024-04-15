@@ -38,7 +38,7 @@
     },
     "sparkNodeSize": {
       "type": "string",
-      "defaultValue": "small",
+      "defaultValue": "Small",
       "allowedValues": [
         "Small",
         "Medium",
