@@ -23,7 +23,7 @@ jobs:
           subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
           resourceGroupName: "hruthes-dataeng"
           template: ./synapse.json
-          parameters: workspaceName=hruthes-synapse-armtemplate sqlAdministratorLogin=hruthes storageAccountName=hruthesdataengtestarm storageAccountContainerName=armcontainer
+          parameters: workspaceName=hruthes-synapse-armtemplate sqlAdministratorLogin=hruthes storageAccountName=hruthesdataengtestarm
       
 
         # output containerName variable from template
