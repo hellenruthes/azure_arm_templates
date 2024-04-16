@@ -1,7 +1,7 @@
 on: 
   push:
     paths:
-      - 'synapse.json'
+      - './iac/synapse/arm_template_synapse.json'
 name: Synapse ARM Template
 jobs:
     build-and-deploy:
@@ -23,11 +23,11 @@ jobs:
         uses: azure/arm-deploy@v1
         with:
           subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
-          resourceGroupName: "hruthes-resourcegroup"
-          template: ./synapse.json
+          resourceGroupName: "hruthes-resourcegroup
+          template: ./iac/synapse/arm_template_synapse.json'
           parameters: sqlAdministratorLogin=${{ secrets.SYNAPSE_CREDENTIALS.login }} 
                       sqlAdministratorLoginPassword=${{ secrets.SYNAPSE_CREDENTIALS.password }} 
-                      companyTla=hruthes
+                      companyTla=tou
       
 
         # output containerName variable from template
