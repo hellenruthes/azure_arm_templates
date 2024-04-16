@@ -461,46 +461,7 @@
         "principalId": "[reference(resourceId('Microsoft.Synapse/workspaces', variables('workspaceName')), '2019-06-01-preview', 'Full').identity.principalId]",
         "principalType": "ServicePrincipal"
       }
-    },
-    {
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2020-06-01",
-      "name": "MSIRBACOnResourceGroup0",
-      "dependsOn": [
-        "logicAppResumeDeployment",
-        "logicAppPauseDeployment"
-      ],
-      "properties": {
-        "mode": "Incremental",
-        "templatelink": {
-          "value": "[reference('linkedTemplate')]"
-        },
-        "parameters": {
-          "logicAppName": {
-            "value": "[variables('logicApps')[0]]"
-          }
-        }
-      }
-    },
-    {
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2020-06-01",
-      "name": "MSIRBACOnResourceGroup1",
-      "dependsOn": [
-        "logicAppResumeDeployment",
-        "logicAppPauseDeployment"
-      ],
-      "properties": {
-        "mode": "Incremental",
-        "templatelink": {
-          "uri": "[uri(deployment().properties.templateLink.uri, 'azuredeploy-rkazurekeyvault.json')]"
-        },
-        "parameters": {
-          "logicAppName": {
-            "value": "[variables('logicApps')[1]]"
-          }
-        }
-      }
     }
   ]
 }
+
