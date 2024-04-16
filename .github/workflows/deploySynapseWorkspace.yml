@@ -1,7 +1,7 @@
 on: 
   push:
     paths:
-      - './iac/synapse/arm_template_synapse.json'
+      - '/iac/synapse/arm_template_synapse.json'
 name: Synapse ARM Template
 jobs:
     build-and-deploy:
