@@ -252,10 +252,10 @@
   },
   "variables": {
     "synapseName": "[toLower(concat(parameters('companyTla'),'-',parameters('deploymentType')))]",
-    "dlsName": "[toLower(concat('dls','-', parameters('companyTla'),'-',parameters('deploymentType')))]",
-    "dlsFsName": "[toLower(concat(variables('dlsName'),'-','fs'))]",
-    "sqlPoolName": "[toLower(concat(variables('workspaceName'),'-','sqlpool'))]",
-    "workspaceName": "[toLower(concat(variables('synapseName'),'-','workspace'))]",
+    "dlsName": "[toLower(concat('dls', parameters('companyTla'),parameters('deploymentType')))]",
+    "dlsFsName": "[toLower(concat(variables('dlsName'),'fs'))]",
+    "sqlPoolName": "[toLower(concat(variables('workspaceName'),'sqlpool'))]",
+    "workspaceName": "[toLower(concat(variables('synapseName'),'workspace'))]",
     "sparkPoolName": "[toLower('sparkpool')]",
     "logicApps": [
       "SynapsePauseSchedule",
