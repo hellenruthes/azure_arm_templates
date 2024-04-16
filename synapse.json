@@ -275,13 +275,9 @@
       "name": "logicAppPauseDeployment",
       "properties": {
         "mode": "Incremental",
-        "templatelink": {
-          "uri": "[uri(deployment().properties.templateLink.uri, 'azuredeploy-synapse.json')]"
-        },
+      
         "parameters": {
-          "logicAppName": {
-            "value": "[variables('logicApps')[0]]"
-          },
+       
           "Frequency": {
             "value": "[parameters('Frequency')]"
           },
