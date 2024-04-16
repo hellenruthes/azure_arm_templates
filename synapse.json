@@ -303,40 +303,7 @@
         }
       }
     },
-    {
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2020-06-01",
-      "name": "logicAppResumeDeployment",
-      "properties": {
-        "mode": "Incremental",
-        "templatelink": {
-          "uri": "[uri(parameters('_artifactsLocation'), concat('nestedtemplates/resumetemplate.json', parameters('_artifactsLocationSASToken')))]"
-        },
-        "parameters": {
-          "logicAppName": {
-            "value": "[variables('logicApps')[1]]"
-          },
-          "Frequency": {
-            "value": "[parameters('Frequency')]"
-          },
-          "companyTla": {
-            "value": "[parameters('companyTla')]"
-          },
-          "deploymentType": {
-            "value": "[parameters('deploymentType')]"
-          },
-          "TIME_ZONE": {
-            "value": "[parameters('TIME_ZONE')]"
-          },
-          "ResumeTime": {
-            "value": "[parameters('ResumeTime')]"
-          },
-          "location": {
-            "value": "[parameters('location')]"
-          }
-        }
-      }
-    },
+    
     {
       "type": "Microsoft.Storage/storageAccounts",
       "apiVersion": "2019-06-01",
