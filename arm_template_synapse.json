@@ -251,7 +251,7 @@
     }
   },
   "variables": {
-    "synapseName": "[toLower(concat(parameters('companyTla'),'-',parameters('deploymentType')))]",
+    "synapseName": "[toLower(concat(parameters('companyTla'),parameters('deploymentType')))]",
     "dlsName": "[toLower(concat('dls', parameters('companyTla'),parameters('deploymentType')))]",
     "dlsFsName": "[toLower(concat(variables('dlsName'),'fs'))]",
     "sqlPoolName": "[toLower(concat(variables('workspaceName'),'sqlpool'))]",
