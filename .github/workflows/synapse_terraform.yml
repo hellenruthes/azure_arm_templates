@@ -68,8 +68,7 @@ jobs:
 
     - name: Terraform Plan
       id: plan
-      run: terraform plan -out=tfplan
-      working-directory: ${{ env.plan }}
+      run: terraform plan
       env:
         TF_LOG: trace
         ARM_USE_OIDC: true
