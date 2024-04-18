@@ -58,6 +58,12 @@ variable "another_user_object_id" {
     default = "b8ff661d-b08b-4443-a9f6-3e6e709021e0"
 }
 
+variable "githubworkflowaccount" {
+    type = string
+    description = "The object ID of another user to grant access to the Key Vault"
+    default = "413ed49c-aeb7-4e8e-82d8-46ef68768198"
+}
+
 locals {
     tags = {
         Environment = var.prefix
@@ -80,6 +86,12 @@ resource "time_sleep" "wait_60_seconds" {
     create_duration = "60s"
 }
 
+resource "azurerm_role_assignment" "role_assignment_github" {
+  scope                = azurerm_resource_group.rg.id
+  role_definition_name = "Owner"
+  principal_id         = var.githubworkflowaccount
+}
+
 ############################################################
 # Data Lake
 ############################################################
@@ -99,7 +111,7 @@ resource "azurerm_storage_account" "adls" {
 resource "azurerm_role_assignment" "role_assignment" {
   scope                = azurerm_storage_account.adls.id
   role_definition_name = "Storage Blob Data Owner"
-  principal_id         = data.azurerm_client_config.current.object_id
+  principal_id         = var.
 }
 
 #create storage container
