@@ -18,7 +18,7 @@ terraform {
 
 provider "azurerm" {
     features {}
-    alias           = "default"
+    #alias           = "default"
     use_oidc        = true
     subscription_id = "91dd6738-03c5-4624-b049-6af68a429806"
     client_id       = "340afc1c-6ca1-49e6-b06b-e4246f381fcd"
