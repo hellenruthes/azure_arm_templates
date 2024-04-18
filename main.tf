@@ -111,7 +111,8 @@ resource "azurerm_storage_account" "adls" {
 resource "azurerm_role_assignment" "role_assignment" {
   scope                = azurerm_storage_account.adls.id
   role_definition_name = "Storage Blob Data Owner"
-  principal_id         = var.
+  #principal_id         = data.azurerm_client_config.current.object_id
+  principal_id         = var.another_user_object_id
 }
 
 #create storage container
