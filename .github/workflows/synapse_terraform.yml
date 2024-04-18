@@ -31,11 +31,25 @@ jobs:
     outputs:
       tfplanExitCode: ${{ steps.tf-plan.outputs.exitcode }}
 
-    steps:
+    steps:   
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
       uses: actions/checkout@v4
 
+    # Log in Azure
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+          python-version: '3.x'
+
+    - name: Install Azure CLI
+      run: |
+          pip install azure-cli
+
+    - name: Set Azure Subscription
+      run: |
+          az account set --subscription 91dd6738-03c5-4624-b049-6af68a429806
+    #az account set --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }}
     # Install the latest version of the Terraform CLI
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v3
