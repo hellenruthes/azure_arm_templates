@@ -287,9 +287,9 @@ resource "azurerm_synapse_spark_pool" "synapse_spark_pool" {
     #value = azurerm_resource_group.rg.name
 #}
 
-output "azure_region" {
-    value = azurerm_resource_group.rg.location
-}
+#output "azure_region" {
+    #value = azurerm_resource_group.rg.location
+#}
 
 output "adls_name" {
     value = azurerm_storage_account.adls.name
