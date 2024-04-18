@@ -92,7 +92,7 @@ resource "azurerm_storage_account" "adls" {
     account_replication_type = "LRS"
     access_tier              = "Hot"
     tags                     = local.tags
-    depends_on               = [wait_60_seconds]
+    depends_on               = [time_sleep.wait_60_seconds]
 }
 
 resource "azurerm_role_assignment" "role_assignment" {
