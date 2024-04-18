@@ -76,22 +76,22 @@ locals {
 # Resource Group
 ############################################################
 
-resource "azurerm_resource_group" "rg" {
-    name     = "rg${var.prefix}"
-    location = var.azure_region
-}
+#resource "azurerm_resource_group" "rg" {
+    #name     = "rg${var.prefix}"
+    #location = var.azure_region
+#}
 
-resource "time_sleep" "wait_60_seconds" {
-    depends_on = [azurerm_resource_group.rg]
-    create_duration = "60s"
-}
+#resource "time_sleep" "wait_60_seconds" {
+    #depends_on = [azurerm_resource_group.rg]
+    #create_duration = "60s"
+#}
 
-resource "azurerm_role_assignment" "role_assignment_github" {
-  scope                = azurerm_resource_group.rg.id
-  role_definition_name = "Owner"
-  principal_id         = var.githubworkflowaccount
-  depends_on           = [time_sleep.wait_60_seconds]
-}
+#resource "azurerm_role_assignment" "role_assignment_github" {
+  #scope                = azurerm_resource_group.rg.id
+  #role_definition_name = "Owner"
+  #principal_id         = var.githubworkflowaccount
+  #depends_on           = [time_sleep.wait_60_seconds]
+#}
 
 ############################################################
 # Data Lake
