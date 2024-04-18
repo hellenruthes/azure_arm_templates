@@ -31,12 +31,7 @@ provider "azurerm" {
     subscription_id = "91dd6738-03c5-4624-b049-6af68a429806"
     client_id       = "340afc1c-6ca1-49e6-b06b-e4246f381fcd"
     tenant_id       = "e59c14b6-f233-4142-9c75-12bfc17800a5"
-}
 
-
-terraform {
-    backend "azurerm" {
-    }
 }
 ############################################################
 #Data sources
