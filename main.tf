@@ -90,6 +90,7 @@ resource "azurerm_role_assignment" "role_assignment_github" {
   scope                = azurerm_resource_group.rg.id
   role_definition_name = "Owner"
   principal_id         = var.githubworkflowaccount
+  depends_on           = [time_sleep.wait_60_seconds]
 }
 
 ############################################################
