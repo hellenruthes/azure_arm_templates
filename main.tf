@@ -42,6 +42,10 @@ variable "azure_region" {
     default     = "East US"
 }
 
+variable "resource_group_name_prefix" {
+    default     = "rgsandbox"
+}
+
 variable "short_name" {
     description = "The Azure region to deploy resources"
     default     = "tou"
@@ -76,22 +80,22 @@ locals {
 # Resource Group
 ############################################################
 
-resource "azurerm_resource_group" "rg" {
-    name     = "rg${var.prefix}"
-    location = var.azure_region
-}
+#resource "azurerm_resource_group" "rg" {
+    #name     = "rg${var.prefix}"
+    #location = var.azure_region
+#}
 
-resource "time_sleep" "wait_60_seconds" {
-    depends_on = [azurerm_resource_group.rg]
-    create_duration = "60s"
-}
+#resource "time_sleep" "wait_60_seconds" {
+    #depends_on = [azurerm_resource_group.rg]
+    #create_duration = "60s"
+#}
 
-resource "azurerm_role_assignment" "role_assignment_github" {
-  scope                = azurerm_resource_group.rg.id
-  role_definition_name = "Owner"
-  principal_id         = var.githubworkflowaccount
-  depends_on           = [azurerm_resource_group.rg, time_sleep.wait_60_seconds]
- }
+#resource "azurerm_role_assignment" "role_assignment_github" {
+  #scope                = azurerm_resource_group.rg.id
+  #role_definition_name = "Owner"
+  #principal_id         = var.githubworkflowaccount
+  #depends_on           = [azurerm_resource_group.rg, time_sleep.wait_60_seconds]
+#}
 
 ############################################################
 # Data Lake
@@ -99,7 +103,8 @@ resource "azurerm_role_assignment" "role_assignment_github" {
 
 resource "azurerm_storage_account" "adls" {
     name                     = "${var.prefix}storagehruthes"
-    resource_group_name      = azurerm_resource_group.rg.name
+    #resource_group_name      = azurerm_resource_group.rg.name
+    resource_group_name      = var.resource_group_name_prefix
     location                 = var.azure_region
     account_kind             = "StorageV2"
     account_tier             = "Standard"
@@ -112,8 +117,8 @@ resource "azurerm_storage_account" "adls" {
 resource "azurerm_role_assignment" "role_assignment" {
   scope                = azurerm_storage_account.adls.id
   role_definition_name = "Storage Blob Data Owner"
-  #principal_id         = data.azurerm_client_config.current.object_id
-  principal_id         = var.another_user_object_id
+  principal_id         = data.azurerm_client_config.current.object_id
+  #principal_id         = var.another_user_object_id
 }
 
 #create storage container
@@ -146,7 +151,8 @@ resource "azurerm_storage_data_lake_gen2_filesystem" "adsl_fs" {
 #create synapse workspace
 resource "azurerm_synapse_workspace" "synapse" {
     name                                 = "${var.prefix}${var.short_name}synworkspace"
-    resource_group_name                  = azurerm_resource_group.rg.name
+    #resource_group_name                  = azurerm_resource_group.rg.name
+    resource_group_name                  = var.resource_group_name_prefix
     location                             = var.azure_region
     tags                                 = local.tags
     storage_data_lake_gen2_filesystem_id = azurerm_storage_data_lake_gen2_filesystem.adsl_fs.id
@@ -205,7 +211,8 @@ resource "azurerm_synapse_role_assignment" "synapse_role" {
 #get data lake
 data "azurerm_storage_account" "adls" {
     name                = azurerm_storage_account.adls.name
-    resource_group_name = azurerm_resource_group.rg.name
+    #resource_group_name = azurerm_resource_group.rg.name
+    resource_group_name = var.resource_group_name_prefix
 }
 
 # add linked service to synapse
@@ -276,9 +283,9 @@ resource "azurerm_synapse_spark_pool" "synapse_spark_pool" {
 # output
 ############################################################
 
-output "resource_group_name"{
-    value = azurerm_resource_group.rg.name
-}
+#output "resource_group_name"{
+    #value = azurerm_resource_group.rg.name
+#}
 
 output "azure_region" {
     value = azurerm_resource_group.rg.location
