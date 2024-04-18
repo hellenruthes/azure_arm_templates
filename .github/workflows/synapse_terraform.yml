@@ -168,4 +168,4 @@ jobs:
 
     # Terraform Apply
     - name: Terraform Apply
-      run: terraform apply --refresh-only -auto-approve tfplan
+      run: terraform apply -refresh-only -auto-approve tfplan
