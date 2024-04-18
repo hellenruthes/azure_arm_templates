@@ -91,7 +91,7 @@ resource "azurerm_role_assignment" "role_assignment_github" {
   role_definition_name = "Owner"
   principal_id         = var.githubworkflowaccount
   depends_on           = [azurerm_resource_group.rg, time_sleep.wait_60_seconds]
-#}
+ }
 
 ############################################################
 # Data Lake
