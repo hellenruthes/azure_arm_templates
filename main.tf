@@ -74,6 +74,12 @@ resource "azurerm_resource_group" "rg" {
     location = var.azure_region
 }
 
+resource "time_sleep" "wait_x_seconds" {
+    depends_on = [azurerm_synapse_workspace.synapse,
+                  azurerm_synapse_firewall_rule.synapse_firewall]
+    create_duration = "60s"
+}
+
 ############################################################
 # Data Lake
 ############################################################
@@ -87,6 +93,7 @@ resource "azurerm_storage_account" "adls" {
     account_replication_type = "LRS"
     access_tier              = "Hot"
     tags                     = local.tags
+    depends_on               = [wait_x_seconds]
 }
 
 resource "azurerm_role_assignment" "role_assignment" {
