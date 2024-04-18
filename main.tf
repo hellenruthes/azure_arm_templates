@@ -3,6 +3,7 @@
 #Providers
 ############################################################
 
+
 terraform {
     required_providers {
         azurerm = {
@@ -84,7 +85,7 @@ resource "time_sleep" "wait_60_seconds" {
 ############################################################
 
 resource "azurerm_storage_account" "adls" {
-    name                     = "${var.prefix}storage"
+    name                     = "${var.prefix}storagehruthes"
     resource_group_name      = azurerm_resource_group.rg.name
     location                 = var.azure_region
     account_kind             = "StorageV2"
