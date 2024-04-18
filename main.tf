@@ -75,8 +75,7 @@ resource "azurerm_resource_group" "rg" {
 }
 
 resource "time_sleep" "wait_60_seconds" {
-    depends_on = [azurerm_synapse_workspace.synapse,
-                  azurerm_synapse_firewall_rule.synapse_firewall]
+    depends_on = [azurerm_resource_group]
     create_duration = "60s"
 }
 
