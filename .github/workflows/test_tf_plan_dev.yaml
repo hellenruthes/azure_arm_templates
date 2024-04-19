@@ -40,7 +40,7 @@ jobs:
           ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-        run: terraform init -backend=true -backend-config="../config/dev/backend.hcl"
+        run: terraform init -backend=true -backend-config="/home/runner/work/azure_tf_templates/azure_tf_templates/project/config/dev/backend.hcl"
 
       - name: Terraform Validate
         id: validate
