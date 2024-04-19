@@ -1,49 +1,14 @@
 
-############################################################
-#Providers
-############################################################
-
-
-terraform {
-    required_providers {
-        azurerm = {
-            source = "hashicorp/azurerm"
-            version = ">= 3.42.0, < 4.0.0"
-        }
-    }
-
-     backend "azurerm" {
-      resource_group_name  = "tfstate"
-      storage_account_name = "tfstateo9e52"
-      container_name       = "tfstate"
-      key                  = "terraform_rc.tfstate"
-  }
-}
-
-############################################################
-#Subscription
-############################################################
 
 provider "azurerm" {
     features {}
 }
 
-############################################################
-#Data sources
-############################################################
 
 data "azurerm_client_config" "current" {}
 data "azurerm_subscription" "current" {}
 
-############################################################
-# Variables
-############################################################
 
-
-
-############################################################
-# Resource Group
-############################################################
 
 resource "azurerm_resource_group" "rg" {
     name     = "rg2${var.prefix}"
