@@ -55,6 +55,6 @@ jobs:
         STORAGE_ACCOUNT: "tfstateo9e52"
         CONTAINER_NAME: "tfstate"
       #if: github.event_name == 'pull_request'
-      run: terraform plan -no-color -backend-config="storage_account_name=$STORAGE_ACCOUNT" -backend-config="container_name=$CONTAINER_NAME" -backend-config="resource_group_name=$RESOURCE_GROUP"
+      run: terraform plan -backend-config="storage_account_name=$STORAGE_ACCOUNT" -backend-config="container_name=$CONTAINER_NAME" -backend-config="resource_group_name=$RESOURCE_GROUP"
 
      
