@@ -15,7 +15,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: ./synapse
+        working-directory: ./iac/resource_group
 
 
     steps:
