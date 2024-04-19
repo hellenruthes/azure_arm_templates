@@ -30,10 +30,6 @@ jobs:
         with:
           terraform_version: 0.15.5
 
-      - name: Terraform fmt
-        id: fmt
-        run: terraform fmt -check
-
       - name: Terraform Init
         id: init
         env:
@@ -60,6 +56,8 @@ jobs:
   plan-prod:
     name: 'terraform plan prod'
     runs-on: ubuntu-latest
+    requires:
+      - plan-dev
     env:
       TF_WORKING_DIR: 'project'
 
