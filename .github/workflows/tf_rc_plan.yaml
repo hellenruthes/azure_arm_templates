@@ -83,7 +83,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: ./iac/resource_group
+        working-directory: iac
 
     steps:
     # Checkout the repository to the GitHub Actions runner
