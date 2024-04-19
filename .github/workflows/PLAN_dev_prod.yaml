@@ -1,13 +1,11 @@
 name: TEST TF Plan
 
 on:
-  
     push:
       branches:
         - main
       paths:
       - 'projects/**'
-
 
 jobs:
   plan-dev:
@@ -55,7 +53,6 @@ jobs:
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
         run: terraform plan -no-color -var-file="/home/runner/work/azure_tf_templates/azure_tf_templates/project/config/dev/terraform.tfvars"
-
 
   plan-prod:
     name: 'tf plan prod'
