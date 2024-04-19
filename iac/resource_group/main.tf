@@ -40,7 +40,7 @@ data "azurerm_subscription" "current" {}
 ############################################################
 
 resource "azurerm_resource_group" "rg" {
-    name     = "rg${var.prefix}"
+    name     = "rg${var.prefix}2"
     location = var.azure_region
 }
 
