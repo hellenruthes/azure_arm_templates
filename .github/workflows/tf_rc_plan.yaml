@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'iac/resource_group/**'
+      - 'iac/main_rc.tf'
 
 env:
   TF_LOG: INFO
