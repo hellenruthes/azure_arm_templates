@@ -1,6 +1,12 @@
 name: 'Resource Group'
 
-on: [push, pull_request]
+on:
+    push:
+      branches:
+        - main
+      paths:
+        - 'iac/main_synapse.tf'
+
 
 env:
   TF_LOG: INFO
