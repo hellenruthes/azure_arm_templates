@@ -5,7 +5,7 @@ on:
       branches:
         - main
       paths:
-        - 'iac/syn.tf'
+        - 'project/**'
 
 jobs:
   apply-dev:
@@ -42,7 +42,7 @@ jobs:
             #RESOURCE_GROUP: "tfstate"
             #STORAGE_ACCOUNT: "tfstateo9e52"
             #CONTAINER_NAME: "tfstate"
-        run: terraform init -backend=true -backend-config="config/dev/backend.hcl"
+        run: terraform init -backend=true -backend-config="/home/runner/work/azure_tf_templates/azure_tf_templates/project/config/dev/backend.hcl"
 
       - name: Terraform Validate
         id: validate
@@ -57,4 +57,4 @@ jobs:
             #RESOURCE_GROUP: "tfstate"
             #STORAGE_ACCOUNT: "tfstateo9e52"
             #CONTAINER_NAME: "tfstate"
-        run: terraform apply -auto-approve -var-file="config/dev/terraform.tfvars"
+        run: terraform apply -auto-approve -var-file="/home/runner/work/azure_tf_templates/azure_tf_templates/project/config/dev/terraform.tfvars"
