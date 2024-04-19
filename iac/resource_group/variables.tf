@@ -34,5 +34,6 @@ locals {
         Environment = var.prefix
         Owner = "Data Platform Team"
         Project = "POC"
+        Usage = "Sandbox"
     }
 }
