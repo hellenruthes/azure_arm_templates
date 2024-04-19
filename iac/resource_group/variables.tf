@@ -14,7 +14,7 @@ variable "short_name" {
 
 variable "prefix" {
     description = "A prefix to add to all resources"
-    default = "sandbox"
+    default = "test"
 }
 
 variable "another_user_object_id" {
