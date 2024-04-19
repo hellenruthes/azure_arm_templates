@@ -84,7 +84,7 @@ locals {
 ############################################################
 
 resource "azurerm_resource_group" "rg" {
-    name     = "rg${var.prefix}2"
+    name     = "rg2${var.prefix}"
     location = var.azure_region
 }
 
