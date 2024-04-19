@@ -1,16 +1,6 @@
 name: 'Resource Group'
 
-on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'iac/resource_group/**'
-  pull_request:
-    branches:
-      - main
-    paths:
-      - 'iac/resource_group/**'
+on: [push, pull_request]
 
 env:
   TF_LOG: INFO
@@ -88,7 +78,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: ./iac/resource_group
+        working-directory: ./iac/synapse
 
     steps:
     # Checkout the repository to the GitHub Actions runner
