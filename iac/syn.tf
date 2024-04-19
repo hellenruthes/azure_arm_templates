@@ -43,7 +43,7 @@
 ############################################################
 
 resource "azurerm_storage_account" "adls" {
-    name                     = "${var.prefix}storage"
+    name                     = "${var.prefix}storagehruthes"
     resource_group_name      = "rg2test"
     location                 = var.azure_region
     account_kind             = "StorageV2"
