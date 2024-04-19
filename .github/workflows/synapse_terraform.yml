@@ -4,10 +4,10 @@ name: 'Terraform Plan/Apply'
 on:
   push:
     branches:
-    - main
+    - xpto
   pull_request:
     branches:
-    - main
+    - xpto
 
 #Special permissions required for OIDC authentication
 permissions:
