@@ -4,7 +4,7 @@ variable "azure_region" {
 }
 
 variable "resource_group_name_prefix" {
-    default     = "rgsandbox"
+    default     = "rgtest"
 }
 
 variable "short_name" {
