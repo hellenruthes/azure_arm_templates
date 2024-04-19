@@ -29,10 +29,3 @@ variable "githubworkflowaccount" {
     default = "413ed49c-aeb7-4e8e-82d8-46ef68768198"
 }
 
-locals {
-    tags = {
-        Environment = var.prefix
-        Owner = "Data Platform Team"
-        Project = "POC"
-    }
-}

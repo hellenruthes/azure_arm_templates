@@ -1,3 +1,18 @@
+# Config File
+
+# TFState
+
+# Running locally
+
+` 
+    terraform init -backend=true -backend-config="config/local/backend.hcl"
+`
+
+` 
+    terraform plan -var-file="config/local/terraform.tfvars"
+`
+
+
 # azure_arm_templates
 az ad sp create-for-rbac --name "github-deploy-id" --role contributor \
                             --scopes /subscriptions/<id>/resourceGroups/<group> \
