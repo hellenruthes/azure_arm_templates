@@ -1,8 +1,11 @@
 name: TEST TF Plan
 
 on:
-  pull_request:
-    paths:
+  
+    push:
+      branches:
+        - main
+      paths:
       - 'project/**'
 
 
