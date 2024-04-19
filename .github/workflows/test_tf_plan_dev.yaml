@@ -56,7 +56,7 @@ jobs:
   plan-prod:
     name: 'terraform plan prod'
     runs-on: ubuntu-latest
-    requires: [plan-dev]
+    needs: [plan-dev]
     env:
       TF_WORKING_DIR: 'project'
 
