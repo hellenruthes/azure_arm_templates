@@ -31,7 +31,7 @@ jobs:
           terraform_version: 0.15.5
 
       - name: List backend config directory
-        run: ls -alh project/config/dev/
+        run: pwd && ls -l project/config/dev
 
       - name: Terraform Init
         id: init
