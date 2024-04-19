@@ -1,6 +1,11 @@
 name: Apply TF Dev
 
-
+on:
+    push:
+      branches:
+        - main
+      paths:
+        - 'iac/syn.tf'
 
 jobs:
   apply-dev:
