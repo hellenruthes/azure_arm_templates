@@ -5,7 +5,7 @@ on:
       branches:
         - main
       paths:
-        - 'iac/main_synapse.tf'
+        - 'iac/syn.tf'
 
 
 env:
@@ -21,7 +21,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: ./iac/resource_group
+        working-directory: iac
 
 
     steps:
@@ -84,7 +84,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: ./iac/synapse
+        working-directory: iac
 
     steps:
     # Checkout the repository to the GitHub Actions runner
