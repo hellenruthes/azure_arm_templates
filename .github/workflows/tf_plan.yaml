@@ -6,7 +6,7 @@ env:
   TF_LOG: INFO
 
 jobs:
-  terraform:
+  terraform-plan:
     name: 'Terraform'
     runs-on: ubuntu-latest
 
@@ -68,8 +68,31 @@ jobs:
         CONTAINER_NAME: "tfstate"
       run: terraform plan #-no-color
 
-    - name: Terraform apply
-      id: apply
+  terraform-apply:
+    name: 'Terraform'
+    runs-on: ubuntu-latest
+
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    # Set the working directory to main for the config files
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./iac/resource_group
+
+    steps:
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    # Install the preferred version of Terraform CLI 
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: 1.0.10
+
+    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+    - name: Terraform Apply
+      id: init
       env:
         ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
         ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
@@ -79,3 +102,5 @@ jobs:
         STORAGE_ACCOUNT: "tfstateo9e52"
         CONTAINER_NAME: "tfstate"
       run: terraform apply -auto-approve
+
+  
