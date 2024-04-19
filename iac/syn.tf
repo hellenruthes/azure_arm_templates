@@ -213,5 +213,7 @@ resource "azurerm_synapse_spark_pool" "synapse_spark_pool" {
 
 
 ############################################################
-#Synapse Config - dedicated sql pool
+#Synapse Config - serverless sql pool
 ############################################################
+
+
