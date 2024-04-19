@@ -6,11 +6,11 @@ on:
       - main
     paths:
       - 'iac/resource_group/**'
-  pull_request:
-    branches:
-      - main
-    paths:
-      - 'iac/resource_group/**'
+  #pull_request:
+    #branches:
+      #- main
+    #paths:
+      #- 'iac/resource_group/**'
 
 env:
   TF_LOG: INFO
