@@ -4,13 +4,13 @@
 ############################################################
 
 
-terraform {
-    required_providers {
-        azurerm = {
-            source = "hashicorp/azurerm"
-            version = ">= 3.42.0, < 4.0.0"
-        }
-    }
+#terraform {
+    #required_providers {
+        #azurerm = {
+            #source = "hashicorp/azurerm"
+            #version = ">= 3.42.0, < 4.0.0"
+        #}
+    #}
 
      #backend "azurerm" {
       #resource_group_name  = "tfstate"
@@ -18,7 +18,7 @@ terraform {
       #container_name       = "tfstate"
      # key                  = "terraform_synapse.tfstate"
   #}
-}
+#}
 
 ############################################################
 #Subscription
