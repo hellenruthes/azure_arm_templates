@@ -31,7 +31,8 @@ jobs:
           terraform_version: 0.15.5
 
       - name: List backend config directory
-        run: pwd
+        run: ls /home/runner/work/azure_tf_templates/azure_tf_templates/project/config/dev/
+
 
       - name: Terraform Init
         id: init
@@ -53,7 +54,7 @@ jobs:
           ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-        run: terraform plan -no-color -var-file="config/dev/terraform.tfvars"
+        run: terraform plan -no-color -var-file="ls /home/runner/work/azure_tf_templates/azure_tf_templates/project/config/dev/terraform.tfvars"
 
 
   plan-prod:
