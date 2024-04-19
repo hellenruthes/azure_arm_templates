@@ -15,7 +15,8 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: ./main
+        working-directory: ./synapse
+
 
     steps:
     # Checkout the repository to the GitHub Actions runner
