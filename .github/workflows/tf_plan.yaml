@@ -46,12 +46,36 @@ jobs:
     # Run a terraform plan for pull requests only
     - name: Terraform validate
       id: validate
+      env:
+        ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+        ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+        ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+        ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+        RESOURCE_GROUP: "tfstate"
+        STORAGE_ACCOUNT: "tfstateo9e52"
+        CONTAINER_NAME: "tfstate"
       run: terraform validate -no-color
 
     - name: Terraform plan
       id: plan
+      env:
+        ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+        ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+        ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+        ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+        RESOURCE_GROUP: "tfstate"
+        STORAGE_ACCOUNT: "tfstateo9e52"
+        CONTAINER_NAME: "tfstate"
       run: terraform plan -no-color
 
     - name: Terraform apply
       id: apply
+      env:
+        ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+        ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+        ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+        ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+        RESOURCE_GROUP: "tfstate"
+        STORAGE_ACCOUNT: "tfstateo9e52"
+        CONTAINER_NAME: "tfstate"
       run: terraform apply -auto-approve
