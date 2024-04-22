@@ -20,7 +20,7 @@ resource "azurerm_service_plan" "example" {
 }
 
 resource "azurerm_linux_function_app" "example" {
-  name                = "example-linux-function-app"
+  name                = "hruthes-linux-function-app"
   resource_group_name = azurerm_resource_group.example.name
   location            = azurerm_resource_group.example.location
 
