@@ -1,40 +1,32 @@
-resource "azurerm_resource_group" "function-group"{
-    name = "function-group"
-    location = var.azure_region
+resource "azurerm_resource_group" "example" {
+  name     = "example-resources"
+  location = var.azure_region
 }
 
-resource "azurerm_storage_account" "function-group-storage-acc"{
-    name = "functiongroupstorageacc"
-    location = var.azure_region
-    resource_group_name = "rg2test"
-    account_tier = "Standard"
-    account_replication_type = "LRS"
+resource "azurerm_storage_account" "example" {
+  name                     = "linuxfunctionappsa"
+  resource_group_name      = azurerm_resource_group.example.name
+  location                 = azurerm_resource_group.example.location
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
 }
 
-resource "azurerm_service_plan "function-service-plan"{
-    name = "function-service-plan"
-    location = var.azure_region
-    resource_group_name = "rg2test"
-    os_type = "Linux"
-    sku {
-        tier = "Dynamic"
-        size = "Y1"
-    }
+resource "azurerm_service_plan" "example" {
+  name                = "example-app-service-plan"
+  resource_group_name = azurerm_resource_group.example.name
+  location            = azurerm_resource_group.example.location
+  os_type             = "Linux"
+  sku_name            = "Y1"
 }
 
-resource "azurerm_function_app" "function-app"{
-    name = "function-app"
-    location = var.azure_region
-    resource_group_name = "rg2test"
-    app_service_plan_id = azurerm_service_plan.function-service-plan.id
-    storage_account_name = azurerm_storage_account.function-group-storage-acc.name
-    storage_account_access_key = azurerm_storage_account.function-group-storage-acc.primary_access_key
-    version = "~4"
-    app_settings {
-        FUNCTIONS_WORKER_RUNTIME = "python"
-    }
+resource "azurerm_linux_function_app" "example" {
+  name                = "example-linux-function-app"
+  resource_group_name = azurerm_resource_group.example.name
+  location            = azurerm_resource_group.example.location
 
-    site_config {
-        linux_fx_version = "python|3.9"
-    }
+  storage_account_name       = azurerm_storage_account.example.name
+  storage_account_access_key = azurerm_storage_account.example.primary_access_key
+  service_plan_id            = azurerm_service_plan.example.id
+
+  site_config {}
 }
