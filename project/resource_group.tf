@@ -7,10 +7,8 @@ provider "azurerm" {
     features {}
 }
 
-
 data "azurerm_client_config" "current" {}
 data "azurerm_subscription" "current" {}
-
 
 
 resource "azurerm_resource_group" "rg" {
@@ -23,11 +21,3 @@ resource "time_sleep" "wait_60_seconds" {
     create_duration = "60s"
 }
 
-#resource "azurerm_role_assignment" "role_assignment_github" {
-  #scope                = azurerm_resource_group.rg.id
-  #role_definition_name = "Owner"
-  #principal_id         = var.githubworkflowaccount
-  #depends_on           = [azurerm_resource_group.rg, time_sleep.wait_60_seconds]
-#}
-
-############################################################
