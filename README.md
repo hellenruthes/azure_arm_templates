@@ -4,6 +4,12 @@
 
 # Running locally
 
+1. Move to your directory 
+
+`
+ cd project
+`
+
 ` 
     terraform init -backend=true -backend-config="config/local/backend.hcl"
 `
