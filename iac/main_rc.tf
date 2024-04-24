@@ -4,6 +4,9 @@ provider "azurerm" {
     features {}
 }
 
+provider "databricks" {
+  azure_workspace_resource_id = azurerm_databricks_workspace.myworkspace.id
+}
 
 data "azurerm_client_config" "current" {}
 data "azurerm_subscription" "current" {}

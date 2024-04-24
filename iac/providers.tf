@@ -6,6 +6,10 @@ terraform {
             version = ">= 3.42.0, < 4.0.0"
         }
     }
+    databricks = {
+      source = "databrickslabs/databricks"
+      version = "0.2.5"
+    }
 
      backend "azurerm" {
       #resource_group_name  = "tfstate"
