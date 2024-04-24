@@ -39,3 +39,9 @@ https://roykim.ca/2019/09/22/error-fix-linked-arm-template-the-language-expressi
 
 $resourceGroupDeployment = New-AzResourceGroupDeployment -Name 'hruthes-resourcegroup-Deployment' -ResourceGroupName $hruthes-resourcegroup `
 -TemplateUri 'https://raw.githubusercontent.com/RoyKimYYZ/azuredeploy-functionapp-sql-keyvault/master/azuredeploy-functionapp-sql-main.json' `
+
+
+
+
+
+az ad sp create-for-rbac --name "githubworkflow" --role contributor --scopes subscriptions/570fc7c5-b298-4243-b456-64e446dfb91b/resourceGroups/TOU-Dev --json-auth

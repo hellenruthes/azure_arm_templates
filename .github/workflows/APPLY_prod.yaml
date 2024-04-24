@@ -1,4 +1,4 @@
-name: Apply TF Dev
+name: Apply TF PROD
 
 on:
     push:
